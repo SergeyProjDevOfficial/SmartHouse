@@ -1,0 +1,25 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+@if (!string.IsNullOrEmpty(Models.CustomPageModel.selected_port))
+{
+    <div id="output">
+        @section scripts
+        {
+            <script>
+                var updateTime = 3000;
+
+                function renderPartialDataPage() {
+                    $('#output').load('/Partials/SensorsDataPage');
+                }
+
+                renderPartialDataPage();
+
+                setInterval(renderPartialDataPage, updateTime);
+            </script>
+        }
+    </div>
+}

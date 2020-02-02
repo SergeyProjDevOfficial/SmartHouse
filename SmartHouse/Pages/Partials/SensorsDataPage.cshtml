@@ -1,0 +1,9 @@
+﻿@page
+@{
+    Layout = null;
+    var SensorsData = BackgroundWorkers.ArduinoDataGetter.Model;
+}
+
+<h2>@SensorsData.Temperature °С</h2>
+
+<h2>@SensorsData.Wetness %</h2>

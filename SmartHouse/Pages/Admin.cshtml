@@ -1,0 +1,17 @@
+﻿@page
+@model SmartHouse.AdminModel
+@{
+    ViewData["Title"] = "Admin";
+    var PortReport = !string.IsNullOrEmpty(Model.SelectedPort) ? Model.SelectedPort : "No selected port :(";
+}
+
+
+<form method="post">
+    Select Port With Arduino: <br />
+    @foreach (var port in Model.Ports)
+    {
+        <input class="btn btn-info fnc-select-port" type="submit" asp-for="SelectedPort" value="@port">
+    }
+</form>
+
+<h2 style="margin-top: 100px">Your port: @PortReport</h2>
