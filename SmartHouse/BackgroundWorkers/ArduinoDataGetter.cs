@@ -13,7 +13,7 @@ namespace SmartHouse.BackgroundWorkers
     {
         public static DataModel Model;
         private PortHelper portHelper;
-        private SensorDataContext context;
+        //private SensorDataContext context;
 
         public ArduinoDataGetter()
         {
@@ -55,7 +55,7 @@ namespace SmartHouse.BackgroundWorkers
 
                     string data = portHelper.ComPort.ReadExisting();
 
-                        if (data.Length <= 0)
+                    if (data.Length <= 0)
                     {
                         return;
                     }
