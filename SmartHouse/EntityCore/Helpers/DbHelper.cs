@@ -4,27 +4,27 @@ using System.Linq;
 
 namespace SmartHouse.EntityCore.Helpers
 {
-    public class DbHelper
-    {
-        SensorDataContext context { get; set; }
-        public DbHelper(SensorDataContext context)
-        {
-            this.context = context;
-        }
+    //public class DbHelper
+    //{
+    //    SensorDataContext context { get; set; }
+    //    public DbHelper(SensorDataContext context)
+    //    {
+    //        this.context = context;
+    //    }
 
-        public void Add(DataModel data)
-        {
-            context.Add(data);
+    //    public void Add(DataModel data)
+    //    {
+    //        context.Add(data);
 
-            //if (prewData == null)
-            //{
-            //    return;
-            //}
+    //        //if (prewData == null)
+    //        //{
+    //        //    return;
+    //        //}
 
-            //if (prewData.Equals(data))
-            //{
-            //    return;
-            //}
-        }
-    }
+    //        //if (prewData.Equals(data))
+    //        //{
+    //        //    return;
+    //        //}
+    //    }
+    //}
 }

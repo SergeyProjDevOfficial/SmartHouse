@@ -15,11 +15,11 @@ namespace SmartHouse.BackgroundWorkers
         public static DataModel Model;
 
         private PortHelper portHelper;
-        private DbHelper dbHelper;
+        //private DbHelper dbHelper;
 
-        public ArduinoDataGetter(DbHelper context)
+        public ArduinoDataGetter()//DbHelper context)
         {
-            dbHelper = context;
+            //dbHelper = context;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -40,7 +40,7 @@ namespace SmartHouse.BackgroundWorkers
           
                 Model = InitDataModel();
 
-                dbHelper.Add(Model);
+                //dbHelper.Add(Model);
             }
         }
 

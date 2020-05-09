@@ -5,7 +5,7 @@ using SmartHouse.Services;
 
 namespace SmartHouse
 {
-    [Authorize]
+    //[Authorize]
     public class AdminModel : CustomPageModel
     {
         public List<string> Ports { get; set; }

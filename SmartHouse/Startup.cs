@@ -34,7 +34,7 @@ namespace SmartHouse
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
-            services.AddTransient<DbHelper>();
+            //services.AddTransient<DbHelper>();
 
             services.AddEntityFrameworkSqlite().AddDbContext<SensorDataContext>();
             services.AddDbContext<SensorDataContext>(options => options.UseSqlite(Configuration["DefaultConnection"]));
