@@ -8,7 +8,8 @@ namespace SmartHouse.Models
         public static string selected_port = string.Empty;
 
         [BindProperty(SupportsGet = true)]
-        public string SelectedPort { 
+        public string SelectedPort 
+        { 
             get => selected_port;
             set => selected_port = value;
         }

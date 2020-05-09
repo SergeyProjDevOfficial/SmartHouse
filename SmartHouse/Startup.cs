@@ -1,12 +1,14 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Rewrite;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SmartHouse.BackgroundWorkers;
 using SmartHouse.EntityCore.Context;
+using SmartHouse.EntityCore.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -18,8 +20,8 @@ namespace SmartHouse
     public class Startup
     {
         #region Creditionals
-        private string Login { get => "admin"; }
-        private string Password { get => "admin"; }
+        private string Login { get => Configuration["AdminLogin"]; }
+        private string Password { get => Configuration["AdminPassword"]; }
         #endregion
 
         public Startup(IConfiguration configuration)
@@ -32,8 +34,13 @@ namespace SmartHouse
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            services.AddTransient<DbHelper>();
+
             services.AddEntityFrameworkSqlite().AddDbContext<SensorDataContext>();
-            services.AddHostedService<BackgroundWorkers.ArduinoDataGetter>();
+            services.AddDbContext<SensorDataContext>(options => options.UseSqlite(Configuration["DefaultConnection"]));
+
+            services.AddHostedService<ArduinoDataGetter>();
+
             services.AddAuthentication(BasicAuthenticationDefaults.AuthenticationScheme)
                 .AddBasicAuthentication( options => {
                           options.Events = new BasicAuthenticationEvents
@@ -59,6 +66,11 @@ namespace SmartHouse
                               }
                           };
                     });
+
+            void Injects(){
+                
+            };
+            Injects();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -75,11 +87,11 @@ namespace SmartHouse
             using (var serviceScope = app.ApplicationServices
                 .GetService<IServiceScopeFactory>().CreateScope())
             {
-                var context = serviceScope.ServiceProvider
-                    .GetRequiredService<SensorDataContext>();
+                var context = serviceScope.ServiceProvider.GetRequiredService<SensorDataContext>();
                 context.Database.EnsureCreated();
             }
 
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
@@ -92,5 +104,7 @@ namespace SmartHouse
                 endpoints.MapRazorPages();
             });
         }
+
+
     }
 }
